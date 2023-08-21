@@ -1,4 +1,4 @@
-package com.joostit.pingit.model;
+package com.joostit.pingit.repo.model;
 
 import com.joostit.pingit.enumeration.Status;
 import jakarta.persistence.Column;
@@ -21,7 +21,7 @@ public class Server {
 
     @Id
     @GeneratedValue(strategy=AUTO)
-    private long id;
+    private Long id;
 
     @Column(unique=true)
     @NotEmpty(message = "IpAddress cannot be empty or null")

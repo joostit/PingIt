@@ -38,8 +38,7 @@ public class ServerServiceImplementation implements ServerService {
         InetAddress address = InetAddress.getByName(ipAddress);
         server.setStatus(address.isReachable(10000) ? Status.SERVER_UP : Status.SERVER_DOWN);
 
-        serverRepo.save(server);
-        return null;
+        return serverRepo.save(server);
     }
 
     @Override
@@ -64,7 +63,7 @@ public class ServerServiceImplementation implements ServerService {
     public Boolean delete(Long id) {
         log.info("Deleting server with ID {}", id);
         serverRepo.deleteById(id);
-        return null;
+        return true;
     }
 
 

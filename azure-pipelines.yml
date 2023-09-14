@@ -34,6 +34,12 @@ steps:
 #    testResultsFiles: '**/surefire-reports/TEST-*.xml'
     goals: 'verify'
 
+- task: CmdLine@2
+  inputs:
+    script: |
+      echo Directory listing:
+      ls
+
 - task: CopyFiles@2
   displayName: 'Copy Build result Artifact staging directory'
   inputs:

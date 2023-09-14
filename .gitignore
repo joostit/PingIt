@@ -31,3 +31,8 @@ build/
 
 ### VS Code ###
 .vscode/
+
+### For allowing Maven to build Node & Angular
+/node
+/PingItApp/node
+/src/main/resources/public

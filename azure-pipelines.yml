@@ -11,6 +11,13 @@ pool:
 
 steps:
 
+- task: JavaToolInstaller@0
+  displayName: 'Install JDK'
+  inputs:
+    versionSpec: '11'
+    jdkArchitectureOption: 'x64'
+    jdkSourceOption: 'PreInstalled'
+
 - task: NodeTool@0
   inputs:
     versionSource: 'spec'
@@ -22,8 +29,21 @@ steps:
     mavenPomFile: 'pom.xml'
     mavenOptions: '-Xmx3072m'
     javaHomeOption: 'JDKVersion'
-    jdkVersionOption: '1.8'
     jdkArchitectureOption: 'x64'
     publishJUnitResults: true
-    testResultsFiles: '**/surefire-reports/TEST-*.xml'
-    goals: 'package'
+#    testResultsFiles: '**/surefire-reports/TEST-*.xml'
+    goals: 'verify'
+
+- task: CopyFiles@2
+  displayName: 'Copy Build result Artifact staging directory'
+  inputs:
+    SourceFolder: '$(system.defaultworkingdirectory)/target'
+    Contents: '**/*.jar'
+    TargetFolder: '$(build.artifactstagingdirectory)'
+
+- task: PublishBuildArtifacts@1
+  displayName: 'Publish JAR Artifact'
+  inputs:
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+    ArtifactName: 'drop'
+    publishLocation: 'Container'

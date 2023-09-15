@@ -97,7 +97,7 @@
                             <goal>npm</goal>
                         </goals>
                         <configuration>
-                            <arguments>run build -- --output-path ..\src\main\resources\public</arguments>
+                            <arguments>run build -- --output-path ../src/main/resources/public</arguments>
                         </configuration>
                     </execution>
                 </executions>

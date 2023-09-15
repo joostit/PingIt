@@ -50,8 +50,24 @@ steps:
 - task: CmdLine@2
   inputs:
     script: |
-      echo dir listing:
-      ls src/main/resources/public
+      echo root:
+      ls
+      
+      echo scr:
+      cd src
+      ls
+      
+      echo main
+      cd main
+      ls
+      
+      echo resources:
+      cd resources
+      ls
+      
+      echo public:
+      cd public
+      ls
 
 - task: CopyFiles@2
   displayName: 'Copy Build result Artifact staging directory'

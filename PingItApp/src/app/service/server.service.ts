@@ -18,7 +18,13 @@ export class ServerService {
 
   private readonly apiUrl = 'http://localhost:8080';
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+
+    console.log("location.origin: " + location.origin);
+    console.log("location.hrf: " + location.href);
+    console.log("location.pathname: " + location.pathname);
+
+   }
 
   // Procedural approach for reference
   //   getServers(): Observable<CustomResponse>{

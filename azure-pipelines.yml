@@ -51,7 +51,7 @@ steps:
   inputs:
     script: |
       echo Directory listing:
-      ls
+      ls src\main\resources\public
 
 - task: CopyFiles@2
   displayName: 'Copy Build result Artifact staging directory'

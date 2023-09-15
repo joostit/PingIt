@@ -32,7 +32,7 @@ public class PingItApplication {
 					"GoogleDns",
 					"128GB",
 					"DNS",
-					"http://localhost:8080/server/image/server1.png", SERVER_UP)));
+					"server1.png", SERVER_UP)));
 
 
 			serverRepo.save((new Server(null,
@@ -40,7 +40,7 @@ public class PingItApplication {
 					"Unknown Thing",
 					"8GB",
 					"Stuff",
-					"http://localhost:8080/server/image/server2.png", SERVER_DOWN)));
+					"server2.png", SERVER_DOWN)));
 		};
 
 

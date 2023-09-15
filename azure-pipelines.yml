@@ -16,13 +16,13 @@ variables:
 steps:
 
 - task: Cache@2
+  displayName: 'Restore Maven dependency cache'
   inputs:
     key: 'maven | "$(Agent.OS)" | **/pom.xml'
     restoreKeys: |
       maven | "$(Agent.OS)"
       maven
     path: $(MAVEN_CACHE_FOLDER)
-  displayName: Cache Maven local repo
 
 - task: JavaToolInstaller@0
   displayName: 'Install JDK'
@@ -32,12 +32,14 @@ steps:
     jdkSourceOption: 'PreInstalled'
 
 - task: NodeTool@0
+  displayName: 'Install Node'
   inputs:
     versionSource: 'spec'
     versionSpec: '6.x'
     checkLatest: true
 
 - task: Maven@3
+  displayName: 'Run Maven Clean Package'
   inputs:
     mavenPomFile: 'pom.xml'
     mavenOptions: '-Xmx3072m $(MAVEN_OPTS)'
@@ -47,28 +49,6 @@ steps:
 #    testResultsFiles: '**/surefire-reports/TEST-*.xml'
     goals: 'clean package'
 
-- task: CmdLine@2
-  inputs:
-    script: |
-      echo root:
-      ls
-      
-      echo scr:
-      cd src
-      ls
-      
-      echo main
-      cd main
-      ls
-      
-      echo resources:
-      cd resources
-      ls
-      
-      echo public:
-      cd public
-      ls
-
 - task: CopyFiles@2
   displayName: 'Copy Build result Artifact staging directory'
   inputs:
@@ -77,13 +57,15 @@ steps:
     TargetFolder: '$(build.artifactstagingdirectory)'
 
 
-- task: ArchiveFiles@2
-  inputs:
-    rootFolderOrFile: '$(system.defaultworkingdirectory)/..'
-    includeRootFolder: true
-    archiveType: 'zip'
-    archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
-    replaceExistingArchive: true
+# Archives all files in the build system for problem solving
+#- task: ArchiveFiles@2
+#  displayName: 'Archiving all the files in the build system for debugging'
+#  inputs:
+#    rootFolderOrFile: '$(system.defaultworkingdirectory)/..'
+#    includeRootFolder: true
+#    archiveType: 'zip'
+#    archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
+#    replaceExistingArchive: true
 
 - task: PublishBuildArtifacts@1
   displayName: 'Publish JAR Artifact'

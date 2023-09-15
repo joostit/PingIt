@@ -16,13 +16,11 @@ import { throwError } from 'rxjs';
 export class ServerService {
 
 
-  private readonly apiUrl = 'http://localhost:8080';
+  private readonly apiUrl = location.href;
 
   constructor(private http: HttpClient) {
-
-    console.log("location.origin: " + location.origin);
-    console.log("location.hrf: " + location.href);
-    console.log("location.pathname: " + location.pathname);
+    
+    console.log("apiUrl: " + this.apiUrl);
 
    }
 
@@ -32,28 +30,28 @@ export class ServerService {
   //   }
 
   server$ = <Observable<CustomResponse>>
-    this.http.get<CustomResponse>(`${this.apiUrl}/server/list`)
+    this.http.get<CustomResponse>(`${this.apiUrl}server/list`)
       .pipe(
         tap(console.log),
         catchError(this.handleError)
       )
 
   save$ = (server: Server) => <Observable<CustomResponse>>
-    this.http.post<CustomResponse>(`${this.apiUrl}/server/save`, server)
+    this.http.post<CustomResponse>(`${this.apiUrl}server/save`, server)
       .pipe(
         tap(console.log),
         catchError(this.handleError)
       )
 
   ping$ = (ipAddress: string) => <Observable<CustomResponse>>
-    this.http.get<CustomResponse>(`${this.apiUrl}/server/ping/${ipAddress}`)
+    this.http.get<CustomResponse>(`${this.apiUrl}server/ping/${ipAddress}`)
       .pipe(
         tap(console.log),
         catchError(this.handleError)
       )
 
   delete$ = (serverId: number) => <Observable<CustomResponse>>
-    this.http.delete<CustomResponse>(`${this.apiUrl}/server/delete/${serverId}`)
+    this.http.delete<CustomResponse>(`${this.apiUrl}server/delete/${serverId}`)
       .pipe(
         tap(console.log),
         catchError(this.handleError)
